@@ -1,0 +1,250 @@
+<?php 
+  
+class Capi extends CI_Controller{
+   
+  
+    /* devolve todos os utilizadores ( usado pelo admin) */
+    public function getallusers(){
+          $myjson = $this->Mapi->getallusers();
+          echo json_encode($myjson);
+    }
+    
+    /* devolve todos os users de um tipo 0-admin 1- cliente 2-comerciante ( usado pelo admin) */
+    public function getalltipo($tipo){
+        $myjson = $this->Mapi->getalltipo($tipo);
+        echo json_encode($myjson);
+    }
+    
+    /* devolve um user procurando pelo nome e por tipo 0-admin 1-cliente 2-comerciante */
+    public function getumtipo($nome,$tipo){
+        $myjson = $this->Mapi->getumtipo($nome,$tipo);
+        echo json_encode($myjson);
+    }
+    
+    /* verifica se o user existe */
+    public function checkusernameall($username){
+      $myjson = $this->Mapi->checkusernameall($username);
+      echo json_encode($myjson);
+    }
+   
+    /*  verifica login  */
+    public function checklogin($username,$password){
+        /* devolve os dados quer seja cliente ou admin ou comerciante 
+            depois atraves do uso do TipoUser trata os dados de forma diferente
+        */
+        $result = $this->Mapi->checklogin($username,$password);
+        echo json_encode($result);
+    }
+    
+    /* apaga dados do utilizador */    
+    /* obrigar a usar username e o email ser so opcional para ser contactado ? */
+    public function deletelogin($username,$password,$tipo){   
+              $myjson = $this->Mapi->deleteloginusername($username,$password,$tipo);
+              echo json_encode($myjson);       
+    }
+    
+    // cria login tipo 2-comerciante  tipo 1-cliente 
+    public function criarlogin($tipo){
+      if($tipo == 2)
+      {
+          $username = $this->input->post('Username');
+          $password = $this->input->post('Password');
+          $nome = $this->input->post('Nome');
+          $email = $this->input->post('Email'); 
+          $nif = $this->input->post('Nif');
+          $this->Mapi->insertcomerciante($username,$password,$nome,$email,$nif);
+      }
+      if($tipo == 1)
+      {
+       $username = $this->input->post('Username');
+       $nome = $this->input->post('Nome');
+       $email = $this->input->post('Email');
+       $password = $this->input->post('Password');
+       $this->Mapi->insertcliente($username,$password,$nome,$email);
+       $idcliente =  $this->Mapi->getID($username); // devolve id do cliente criado
+       $this->Mapi->insertclientecliente($idcliente);//insere na tabela Clientes o cliente criado
+      }
+    }
+    
+    
+    /* update de dados */
+    public function updatedadosuser($tipo){
+        if($tipo == 1){
+        $id = $this->input->post('ID');
+        $Nome = $this->input->post('Nome');
+        $Email = $this->input->post('Email');
+        $datanasc = $this->input->post('DataNasc');
+        $noti = $this->input->post('Noti');
+        $sexo = $this->input->post('Sexo');
+       
+        $this->Mapi->updatedadoscliente1($id,$Nome,$Email);
+        $this->Mapi->updatedadoscliente2($id,$datanasc,$sexo,$noti);
+      echo $id."/".$Nome."/".$Email."/".$datanasc."/".$noti."/".$sexo;
+        }
+    }
+     /* devolve todas as promocoes (usado pelo admin) */
+        /* falta o model */
+     public function getallpromocoes()
+     {
+         $myjson = $this->Mapi->getallpromocoes();
+         echo json_encode($myjson);
+     }
+     
+     /* devolve todas as promocoes se tipo 1- cliente 2-comerciante */
+          /* tipo 1 serve para mostrar ao cliente todas as promocoes dele */
+     /* tipo 2 server para quando o comerciante ve as promocoes dele 
+         ou quando o cliente pesquisa as promocoes do comerciante */
+    /* falta o model */
+     public function getallpromocoescomerciante($id){
+         $myjson = $this->Mapi->getallpromocoescomerciante($id);
+         echo json_encode($myjson);
+     }
+     
+     
+     /*cria promocao tipo 1- se for ganhar carimbos, 2- se for gastar cupoes ,recebe um datatime de dataincio (por fazer) */
+     /* falta o model */
+     public function criarpromocao($username,$tipo,$duracao,$areapromo,$descricao,$valor)
+     {
+         $myjson = $this->Mapi->criarpromocao($username,$tipo,$duracao,$areapromo,$descricao,$valor);
+         echo json_encode($myjson);
+     }
+     
+     /* delete da promocao id na pagina quando manda a promocao ao apagar envia o user e o idpromo*/
+     /* falta o model */
+     public function deletepromocao($username,$idpromocao)
+     {
+       $myjson = $this->Mapi->deletepromocao($username,$idpromocao);
+       echo json_encode($myjson);
+     }
+     
+     public function getareas(){
+       $myjson = $this->Mapi->getareas();
+       echo json_encode($myjson);
+     }
+     
+     /*devolve as areas do cliente */
+     /* falta o model */
+     public function getareasfav($tipo,$id){
+     if($tipo == 1){
+              $myjson = $this->Mapi->getareasfavcliente($id);
+         echo json_encode($myjson);
+         }
+     }
+     
+     
+   
+     /* devolve os comerciantes favoritos do cliente */
+      /* falta o model */
+     public function getfidelizados($tipo,$ID){
+     if($tipo == 1){
+     
+       $myjson = $this->Mapi->getcomerciantesfidelizados($ID);
+       echo json_encode($myjson);
+       }
+     }
+     
+     /*adiciona area ao cliente */
+      /* falta o model */
+     public function addareacliente($username,$idarea){
+       $myjson = $this->Mapi->addareacliente($username,$idarea);
+       echo json_encode($myjson);
+     }
+     
+     /* adiciona a area aos favoritos do cliente
+     fazer enviar o id areacliente em vez de username e area  ? */
+      /* falta o model */
+     public function addareafavoritoscliente($username,$idarea){
+       $myjson = $this->Mapi->addareafavoritoscliente($username,$idarea);
+       echo json_encode($myjson);
+     }
+     
+     /* delete area favoritos cliente
+       fazer enviar o id areacliente em vez de username e area  ? */
+      /* falta o model */
+     public function deleteareafavoritoscliente($username,$idarea) {
+     $myjson = $this->Mapi->deleteareafavoritoscliente($username,$idarea);
+     echo json_encode($myjson);
+     }
+     
+     /* delete area do cliente
+      fazer enviar o id areacliente em vez de username e area  ? */
+        /* falta o model */
+     public function deleteareacliente($id){
+     $myjson = $this->Mapi->deleteareafavoritoscliente($iD);
+     echo json_encode($myjson);
+     }
+     
+     /* devolve areas do comerciante */
+     /* falta o model */
+      public function getareascomerciante($username){
+        $myjson = $this->Mapi->getareascomerciante($username);
+        echo json_encode($myjson);
+      }
+      
+      /* add area comerciante */
+        /* falta o model */
+      public function addareacomerciante($username,$idarea){
+        $myjson = $this->Mapi->addareacomerciante($username,$idarea);
+        echo json_encode($myjson);
+      }
+      
+      /* delete area comerciante 
+       fazer enviar o id areacliente em vez de username e area  ?*/
+          /* falta o model */
+      public function deleteareacomerciante($username,$idarea){
+        $myjson = $this->Mapi->deleteareacomerciante($username,$idarea);
+        echo json_encode($myjson);
+      } 
+      
+      /* adiciona comerciantes para o admin aprovar */
+      public function criarcomerciantependente()
+      {
+          $username = $this->input->post('Username');
+          $password = $this->input->post('Password');
+          $nome = $this->input->post('Nome');
+          $email = $this->input->post('Email'); 
+          $nif = $this->input->post('Nif');
+      //    echo $username."<br>".$password."<br>".$nome."<br>".$email."<br>".$nif;
+          $this->Mapi->criarcomerciantependente($username,$password,$nome,$email,$nif);
+      }
+      
+      /* Devolve todos os comerciantes pendentes */
+      public function getallcomerciantespendentes(){
+        $myjson = $this->Mapi->getallcomerciantespendentes();
+        echo json_encode($myjson);
+      }
+      
+      
+      /* devolve se  ja ha um comerciante pendente com o mesmo username */
+      public function checkusernamecp($username)
+      {
+       $myjson =  $this->Mapi->checkusernamecp($username);
+       echo json_encode($myjson);
+      }
+      
+      
+    
+ /* FUNCOES POR FAZER */   
+   /* 
+       MUDAR A BASE DE DADOS 
+       
+       1  --------->  ACRESCENTAR UMA TABELA COM OS MESMOS ATRIBUTOS QUE OS UTILIZADORES PARA ENVIAR PARA O ADMIN PARA ELE ACEITAR  (feito)
+       
+       2  --------->  MUDAR A TABELA UTILIZADOR PARA CONTER UM NIF (feito)
+       
+       3 ---------->  MUDAR ATRIBUTO TIPO_UTILIZADOR DA TABELA UTILIZADORES PARA TIpoUser (feito)
+       
+       4  ---------->  MUDAR palavrachave DA TABELA UTILIZADORES PARA Password   (feito)
+       
+       5  ---------->  ACRESCENTAR DATA CRIACAO NA TABELA USERS (feito)
+       
+       6  -----------> MUDAR DATA DE CRIACAO NA TABELA PROMOCOES PARA current time  (feito)
+       
+       7 ------------> ACRESCENTAR TABELA PREMIUM 
+         
+   */
+ /* FIM DE FUNCOES POR FAZER */ 
+}
+
+
+?>

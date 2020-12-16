@@ -1,0 +1,9 @@
+<resources>
+    <string name="app_name">Wallet</string>
+
+    <string-array name="spinnercontent">
+        <item>Masculino</item>
+        <item>Feminino</item>
+        <item>Outro</item>
+    </string-array>
+</resources>

@@ -1,0 +1,55 @@
+.erro{
+    visibility: hidden;
+    display: none;
+    border: 2px solid red;
+    background-color: rgba(196, 159, 159, 0.753);
+    color: rgb(121, 2, 2);
+    padding: 6px;
+}
+input, textarea{
+    width: 70%;
+    float: right;
+}
+#envia_form{
+    margin: 0 auto;
+    border-radius: 50px;
+    width: 30%;
+    padding: 2px;
+    float: right;
+    background-color: white;
+}
+
+.result{
+    visibility: hidden;
+    display: none;
+}
+
+.good{
+    border: 2px solid green;
+    background-color: rgba(211, 248, 211, 0.712);
+    color: rgba(2, 104, 2, 0.863);
+    padding: 4px;
+}
+
+.box{
+    background-color: rgb(199, 199, 199);
+    border-radius: 5px;
+    margin-top: 1px;
+}
+
+.box2{
+    width: 90%;
+    margin: 0 auto;
+}
+
+#nome{
+    font-family: "Trebuchet MS", Helvetica, sans-serif;
+    margin-top: 1px;
+    padding-top: 10px;
+    margin-bottom: 3px;
+}
+
+#mensg{
+    border-radius: 5px;
+    background-color: rgb(240, 240, 240);
+}

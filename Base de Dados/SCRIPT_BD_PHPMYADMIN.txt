@@ -1,0 +1,93 @@
+﻿CREATE TABLE UtilizadoresP(
+	UserID INT NOT NULL AUTO_INCREMENT,
+	TIPO_UTILIZADOR INT NOT NULL,
+	Username char(100),
+	palavrachave char(20),
+	Nome char(100),
+	email char(100),
+	Morada char(200),
+	Telefone INT,
+ 	CONSTRAINT PK_UserID PRIMARY KEY (UserID)
+)
+
+CREATE TABLE AdministradorP(
+UserID INT ,
+IDAdmin INT AUTO_INCREMENT,
+CONSTRAINT PK_IDAdmin PRIMARY KEY (IDAdmin),
+CONSTRAINT FK_A_UserID FOREIGN KEY (UserID) REFERENCES UtilizadoresP(UserID)
+)
+
+CREATE TABLE ClientesP(
+	UserID INT,
+	Idade INT,
+	Sexo INT,
+	Notificacao INT , /* 0 no quer ,1 favoritos,2 area de interesse, 3 ambos*/
+	Favoritos BINARY,/*tem ou nao favoritos na tabela favoritosP*/
+	Area_De_interesse BINARY,
+	CONSTRAINT PK_IDCliente PRIMARY KEY(UserID),
+	CONSTRAINT FK_Cl_UserID FOREIGN KEY(UserID) REFERENCES UtilizadoresP(UserID)
+)
+
+CREATE TABLE Areas_De_Interesse(
+	IDCliente INT,
+	IDArea_de_interesse INT AUTO_INCREMENT,
+	Restaracao	BINARY,
+	Pastelaria	BINARY,
+	Calcado		BINARY,
+	Mecanica	BINARY,
+	Florista	BINARY,
+	Mobiliario	BINARY,
+	CONSTRAINT Pk_IDArea_de_interesse PRIMARY KEY(IDArea_de_interesse),
+	CONSTRAINT FK_A_IDCliente FOREIGN KEY (IDCliente) REFERENCES ClientesP(IDCliente)
+)
+
+CREATE TABLE FavoritosP(
+	IDCliente INT,
+	IDFavoritos INT AUTO_INCREMENT,
+	Restaracao	BINARY,
+	Pastelaria	BINARY,
+	Calcado		BINARY,
+	Mecanica	BINARY,
+	Florista	BINARY,
+	Mobiliario	BINARY,
+	CONSTRAINT PK_IDFavoritos PRIMARY KEY(IDFavoritos),
+	CONSTRAINT FK_F_IDCliente FOREIGN KEY(IDCliente) REFERENCES ClientesP(IDCliente)
+)
+
+CREATE TABLE ComerciantesP(
+	UserID INT,	
+	Colaborador INT,
+	Idade INT,
+	Sexo INT,
+	CONSTRAINT PK_IDComerciante PRIMARY KEY(UserID),
+	CONSTRAINT FK_C_UserID FOREIGN KEY(UserID) REFERENCES UtilizadoresP(UserID)
+)
+CREATE TABLE ColaboradoresP(
+	IDComerciante INT,
+	IDColaborador INT AUTO_INCREMENT,
+	Username char(100),
+	Palavrachave char(50),
+	email char(100),
+	CONSTRAINT PK_IDColaborador PRIMARY KEY(IDColaborador),
+	CONSTRAINT FK_C_IDComerciante FOREIGN KEY(IDComerciante) REFERENCES ComerciantesP(IDComerciante)
+)
+
+CREATE TABLE PromoçoesP(
+	IDComerciante INT,
+	IDPromoçao INT AUTO_INCREMENT,
+	DataInicio INT,
+	DataFim INT,
+	CONSTRAINT PK_IDPromoçao PRIMARY KEY(IDPromoçao),
+	CONSTRAINT FK_P_IDComerciante FOREIGN KEY(IDComerciante) REFERENCES ComerciantesP(IDComerciante)
+)
+
+CREATE TABLE HistoricoAcessoP(
+	UserID INT,
+	IDHistorico INT AUTO_INCREMENT,
+	Data_Acesso INT,
+	Data_Saida INT,
+	Hora INT,
+	/* adicionar  tentativas de acesso ????*/
+	CONSTRAINT PK_IDHistorico PRIMARY KEY(IDHistorico),
+	CONSTRAINT FK_H_UserID FOREIGN KEY(UserID) REFERENCES UtilizadoresP(UserID)
+)

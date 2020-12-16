@@ -1,0 +1,181 @@
+<?php 
+
+class Mapi extends CI_Model{
+   
+    
+    public function getID($username){
+       $this->db->select("IDUser");
+       $this->db->where("Username",$username);
+      $result = $this->db->get("Utilizadores");
+      return $result->row();
+    }
+    /* devolve todos os utilizadores */
+  public function getallusers()
+  {
+        $result = $this->db->get('Utilizadores');
+        return $result->result();
+   }
+
+  /* devolve todos os users de um tipo 0-admin 1- cliente 2-comerciante*/
+   public function getalltipo($tipo){
+      $this->db->select('*');
+      $this->db->where('TIPO_UTILIZADOR',$tipo);
+        $result = $this->db->get('Utilizadores');
+      return $result->result();
+      }
+
+ /* devolve um user procurando pelo nome e por tipo 0-admin 1-cliente 2-comerciante */  
+   public function getumtipo($name,$tipo){
+       $this->db->select('*');
+       $this->db->where('Nome',$name);
+       $this->db->where('TIPO_UTILIZADOR',$tipo);
+       $result = $this->db->get('Utilizadores');
+       return $result->result();
+   }
+   
+   
+   /* devolve informacoes do utilizadore se o login for valido*/
+   public function checklogin($username,$password){
+       $this->db->select('*');
+       $this->db->where('Username',$username);
+       $this->db->where('Password',$password); /* trocar palavra chave por password na base de dados */
+       $result = $this->db->get('Utilizadores');
+       return $result->row();
+   }
+   
+   /*inscreve comerciante */
+    public function insertcomerciante($username,$password,$nome,$email,$nif){
+        $data = array(
+    'Username' => $username,
+    'Password' => $password,
+    'Nome' => $nome,
+    'Email' => $email,
+    'Nif' => $nif,
+    'TipoUser' => 2,
+  );
+  $this->db->set('DataCriacao', 'NOW()', FALSE);
+  $this->db->insert('Utilizadores',$data);
+    }
+    
+    //inscreve comerciante 
+    public function insertcliente($username,$password,$nome,$email){
+      $data = array(
+      'Username' => $username,
+      'Password' => $password,
+      'Nome' => $nome,
+      'Email' => $email,
+      'TipoUser' => 1
+      );
+      $this->db->set('DataCriacao','NOW()',FALSE);
+      $this->db->insert('Utilizadores',$data);
+    }
+    
+    //insere cliente na tabela clientes
+    public function insertclientecliente($id){
+    $data = array('ClienteID' => $id);
+    $this->db->insert("Clientes",$data);
+    }
+      
+   /*  apaga o utilizador da base de dados */
+   /* acho que é preciso apagar o resto da info */
+   public function deletelogin($username,$password,$tipo){
+        $this->db->where('Username',$username);
+        $this->db->where('TIPO_UTILIZADOR',$tipo);
+        $this->db->delete('Utilizadore');     
+   }
+   
+   /*add login aos utilizadores */
+   /* verificar funcao */
+   public function createlogin($username,$password,$tipo){
+     $this->db->set('Username',$username);
+     $this->db->set('palavrachave',$password);
+     $this->db->set('TIPO_UTILIZADOR',$tipo);
+     $this->db->insert('Utilizadores');
+   }
+  
+  /* check username*/
+  /* verificar para retornar um numero */
+  public function checkusernameall($username){
+    $this->db->where('Username',$username);
+    $result =  $this->db->get('Utilizadores');
+    return $result->num_rows();
+  }
+  
+  /*criar comerciante pendente*/
+  public function criarcomerciantependente($username,$password,$nome,$email,$nif)
+  {
+  $data = array(
+    'Username' => $username,
+    'Password' => $password,
+    'Nome' => $nome,
+    'Email' => $email,
+    'Nif' => $nif,
+    'Tipouser' => 1,
+  );
+  $this->db->set('DataPedido', 'NOW()', FALSE);
+  $this->db->insert('ComerciantesPendentes',$data);
+  }
+  
+  /* Devolve todos os comerciantes pendentes */
+  public function getallcomerciantespendentes(){
+      $result = $this->db->get('ComerciantesPendentes');
+      return $result->result();
+  }
+  
+  /* Procura username em ComerciantePendentes */
+  public function checkusernamecp($username)
+  {
+    $this->db->where ('Username',$username);
+    $result = $this->db->get('ComerciantesPendentes');
+    return $result->num_rows();
+  }
+  
+  /* devolve todas as promocoes comerciante */
+  public function getallpromocoescomerciante($id){
+    $this->db->where('IDComerciante',$id);
+    $result = $this->db->get('Promocoes');
+    return $result->result();
+  }
+  
+  //devolver areas
+  public function getareas(){
+  $this->db->select('Descricao');
+  $result = $this->db->get('Areas');
+  return $result->result();
+  }
+  // update dados cliente 
+   public function updatedadoscliente1($id,$Nome,$email){
+
+$this->db->set('email',$email);
+$this->db->set('Nome',$Nome);
+
+$this->db->where('IDUser',$id);
+$this->db->update('Utilizadores');
+}
+  // update dados cliente 
+   public function updatedadoscliente2($id,$datanasc,$sexo,$noti){
+
+
+$this->db->set('DataNascimento',$datanasc);
+$this->db->set('Sexo',$sexo);
+$this->db->set('Notificacao',$noti);
+
+$this->db->where('ClienteID',$id);
+$this->db->update('Clientes');
+}
+   
+   // devolve comerciantes de um cliente 
+   public function getcomerciantesfidelizados($id){
+      $query = $this->db->query('SELECT Utilizadores.Nome,NCarimbos,NCupoes FROM Fidelizacao INNER JOIN Utilizadores On Fidelizacao.IDComerciante = Utilizadores.IDUser  ');
+      return $query->result();
+   }
+   
+   // devolve areas cliente recebe id
+   public function getareasfavcliente(){
+     $query = $this->db->query('SELECT Areas.Descricao FROM AreasClientes INNER JOIN Areas On AreasClientes.IDArea = Areas.IDArea');
+     return $query->result();
+   }
+   
+  
+}
+?>

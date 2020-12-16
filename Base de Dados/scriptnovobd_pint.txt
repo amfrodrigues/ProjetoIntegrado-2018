@@ -1,0 +1,41 @@
+
+/* -- Insere Utilizadores -- */
+
+INSERT INTO `Utilizadores` (`IDUser`, `TIPO_UTILIZADOR`, `Username`, `palavrachave`, `Nome`, `email`, `Morada`, `Telefone`) VALUES (NULL, '0', 'Admin', 'admin', 'Administrador', NULL, NULL, NULL);
+INSERT INTO `Utilizadores` (`IDUser`, `TIPO_UTILIZADOR`, `Username`, `palavrachave`, `Nome`, `email`, `Morada`, `Telefone`) VALUES (NULL, '1', 'Cliente1', 'cliente1', 'CLIENTE1', 'cliente1@gmail.com', 'moradacliente1', '900000000');
+INSERT INTO `Utilizadores` (`IDUser`, `TIPO_UTILIZADOR`, `Username`, `palavrachave`, `Nome`, `email`, `Morada`, `Telefone`) VALUES (NULL, '2', 'Comerciante1', 'comerciante1', 'COMERCIANTE1', 'comerciante1@gmail.com', 'moradacomerciante1', '999999999');
+INSERT INTO `Utilizadores` (`IDUser`, `TIPO_UTILIZADOR`, `Username`, `palavrachave`, `Nome`, `email`, `Morada`, `Telefone`) VALUES (NULL, '1', 'Cliente2', 'cliente2', 'CLIENTE2', 'cliente2@gmail.com', 'moradacliente2', '900000001');
+INSERT INTO `Utilizadores` (`IDUser`, `TIPO_UTILIZADOR`, `Username`, `palavrachave`, `Nome`, `email`, `Morada`, `Telefone`) VALUES (NULL, '1', 'Cliente3', 'cliente3', 'CLIENTE3', 'cliente3@gmail.com', 'moradacliente3', '900000002');
+INSERT INTO `Utilizadores` (`IDUser`, `TIPO_UTILIZADOR`, `Username`, `palavrachave`, `Nome`, `email`, `Morada`, `Telefone`) VALUES (NULL, '1', 'Cliente4', 'cliente4', 'CLIENTE4', 'cliente4@gmail.com', 'moradacliente4', '900000003');
+INSERT INTO `Utilizadores` (`IDUser`, `TIPO_UTILIZADOR`, `Username`, `palavrachave`, `Nome`, `email`, `Morada`, `Telefone`) VALUES (NULL, '1', 'Cliente5', 'cliente5', 'CLIENTE5', 'cliente5@gmail.com', 'moradacliente5', '900000004');
+INSERT INTO `Utilizadores` (`IDUser`, `TIPO_UTILIZADOR`, `Username`, `palavrachave`, `Nome`, `email`, `Morada`, `Telefone`) VALUES (NULL, '1', 'Cliente6', 'cliente6', 'CLIENTE6', 'cliente6@gmail.com', 'moradacliente6', '900000005');
+INSERT INTO `Utilizadores` (`IDUser`, `TIPO_UTILIZADOR`, `Username`, `palavrachave`, `Nome`, `email`, `Morada`, `Telefone`) VALUES (NULL, '2', 'Comerciante2', 'comerciante2', 'COMERCIANTE2', 'comerciante2@gmail.com', 'moradacomerciante2', '999999998');
+INSERT INTO `Utilizadores` (`IDUser`, `TIPO_UTILIZADOR`, `Username`, `palavrachave`, `Nome`, `email`, `Morada`, `Telefone`) VALUES (NULL, '2', 'Comerciante3', 'comerciante3', 'COMERCIANTE3', 'comerciante3@gmail.com', 'moradacomerciante3', '999999997');
+INSERT INTO `Utilizadores` (`IDUser`, `TIPO_UTILIZADOR`, `Username`, `palavrachave`, `Nome`, `email`, `Morada`, `Telefone`) VALUES (NULL, '2', 'Comerciante4', 'comerciante4', 'COMERCIANTE4', 'comerciante4@gmail.com', 'moradacomerciante4', '999999996');
+INSERT INTO `Utilizadores` (`IDUser`, `TIPO_UTILIZADOR`, `Username`, `palavrachave`, `Nome`, `email`, `Morada`, `Telefone`) VALUES (NULL, '2', 'Comerciante5', 'comerciante5', 'COMERCIANTE5', 'comerciante5@gmail.com', 'moradacomerciante5', '999999995');
+INSERT INTO `Utilizadores` (`IDUser`, `TIPO_UTILIZADOR`, `Username`, `palavrachave`, `Nome`, `email`, `Morada`, `Telefone`) VALUES (NULL, '1', 'Cliente7', 'cliente7', 'CLIENTE7', 'cliente7@gmail.com', 'moradacliente7', '900000006');
+INSERT INTO `Utilizadores` (`IDUser`, `TIPO_UTILIZADOR`, `Username`, `palavrachave`, `Nome`, `email`, `Morada`, `Telefone`) VALUES (NULL, '1', 'Cliente8', 'cliente8', 'CLIENTE8', 'cliente8@gmail.com', 'moradacliente8', '900000007');
+INSERT INTO `Utilizadores` (`IDUser`, `TIPO_UTILIZADOR`, `Username`, `palavrachave`, `Nome`, `email`, `Morada`, `Telefone`) VALUES (NULL, '1', 'Cliente9', 'cliente9', 'CLIENTE9', 'cliente9@gmail.com', 'moradacliente9', '900000008');
+INSERT INTO `Utilizadores` (`IDUser`, `TIPO_UTILIZADOR`, `Username`, `palavrachave`, `Nome`, `email`, `Morada`, `Telefone`) VALUES (NULL, '1', 'Cliente10', 'cliente10', 'CLIENTE10', 'cliente10@gmail.com', 'moradacliente10', '900000009');
+INSERT INTO `Utilizadores` (`IDUser`, `TIPO_UTILIZADOR`, `Username`, `palavrachave`, `Nome`, `email`, `Morada`, `Telefone`) VALUES (NULL, '2', 'Comerciante6', 'comerciante6', 'COMERCIANTE6', 'comerciante6@gmail.com', 'moradacomerciante6', '999999994');
+INSERT INTO `Utilizadores` (`IDUser`, `TIPO_UTILIZADOR`, `Username`, `palavrachave`, `Nome`, `email`, `Morada`, `Telefone`) VALUES (NULL, '2', 'Comerciante7', 'comerciante7', 'COMERCIANTE7', 'comerciante7@gmail.com', 'moradacomerciante7', '999999993');
+INSERT INTO `Utilizadores` (`IDUser`, `TIPO_UTILIZADOR`, `Username`, `palavrachave`, `Nome`, `email`, `Morada`, `Telefone`) VALUES (NULL, '2', 'Comerciante8', 'comerciante8', 'COMERCIANTE8', 'comerciante8@gmail.com', 'moradacomerciante8', '999999992');
+INSERT INTO `Utilizadores` (`IDUser`, `TIPO_UTILIZADOR`, `Username`, `palavrachave`, `Nome`, `email`, `Morada`, `Telefone`) VALUES (NULL, '2', 'Comerciante9', 'comerciante9', 'COMERCIANTE9', 'comerciante9@gmail.com', 'moradacomerciante9', '999999991');
+INSERT INTO `Utilizadores` (`IDUser`, `TIPO_UTILIZADOR`, `Username`, `palavrachave`, `Nome`, `email`, `Morada`, `Telefone`) VALUES (NULL, '2', 'Comerciante10', 'comerciante10', 'COMERCIANTE10', 'comerciante10@gmail.com', 'moradacomerciante10', '999999990');
+
+/* -- Insere Areas -- */
+
+INSERT INTO `Areas` (`IDArea`, `Descricao`) VALUES (NULL, 'Restauração');
+INSERT INTO `Areas` (`IDArea`, `Descricao`) VALUES (NULL, 'Florista');
+INSERT INTO `Areas` (`IDArea`, `Descricao`) VALUES (NULL, 'Automovel');
+INSERT INTO `Areas` (`IDArea`, `Descricao`) VALUES (NULL, 'Roupa');
+INSERT INTO `Areas` (`IDArea`, `Descricao`) VALUES (NULL, 'Eletrodomesticos');
+INSERT INTO `Areas` (`IDArea`, `Descricao`) VALUES (NULL, 'Tecnologia');
+INSERT INTO `Areas` (`IDArea`, `Descricao`) VALUES (NULL, 'Imobiliario');
+INSERT INTO `Areas` (`IDArea`, `Descricao`) VALUES (NULL, 'Comercio');
+INSERT INTO `Areas` (`IDArea`, `Descricao`) VALUES (NULL, 'Farmacia');
+INSERT INTO `Areas` (`IDArea`, `Descricao`) VALUES (NULL, 'Calcado');
+INSERT INTO `Areas` (`IDArea`, `Descricao`) VALUES (NULL, 'Infantil');
+
+
+

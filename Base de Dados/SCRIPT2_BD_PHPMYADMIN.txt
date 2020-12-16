@@ -1,0 +1,137 @@
+﻿CREATE TABLE Utilizadores(
+	IDUser INT NOT NULL AUTO_INCREMENT,
+	TIPO_UTILIZADOR INT NOT NULL,
+	Username char(100),
+	palavrachave char(20),
+	Nome char(200),
+	email char(100),
+	Morada char(200),
+	Telefone INT,
+ 	CONSTRAINT PK_UserID PRIMARY KEY (IDUser)
+);
+
+create table Mensagens(
+	IDUserMensagem int,
+	IDMensagem int NOT NULL AUTO_INCREMENT,
+	IDUserRecebido int,
+	DataEnvio int,
+	Mtexto char(200),
+	TipoMensagem int,
+	ativo binary,
+	lida binary,
+    CONSTRAINT PK_IDMensagem PRIMARY KEY (IDMensagem),
+    CONSTRAINT FK_IDUserMensagem FOREIGN KEY (IDUserMensagem) REFERENCES Utilizadores(IDUser),
+    CONSTRAINT FK_IDUserRecebido FOREIGN KEY (IDUserRecebido) REFERENCES Utilizadores(IDUser)
+);
+
+CREATE TABLE Clientes(
+	ClienteID INT, 
+	Idade INT,	
+	Sexo INT,
+	Notificacao Binary,
+	CONSTRAINT PK_IDCliente PRIMARY KEY(ClienteID),
+	CONSTRAINT FK_Cl_UserID FOREIGN KEY(ClienteID) REFERENCES Utilizadores(IDUser)
+);
+
+CREATE TABLE Comerciantes(
+		IDComerciante int,
+    	NCarimbos int,
+    	CONSTRAINT PK_IDComerciante PRIMARY KEY (IDComerciante),
+    	CONSTRAINT FK_IDComerciante FOREIGN KEY (IDComerciante) REFERENCES Utilizadores(IDUser)
+);
+
+CREATE TABLE Cupoes(
+		IDClienteCupao int,
+		IDComercianteCupao int,
+		Favorito BINARY,
+    	NCupoes INT,
+    	NCarimbos int,
+    	CONSTRAINT PK_IDCupoes PRIMARY KEY(IDClienteCupao,IDComercianteCupao),
+    	CONSTRAINT FK_IDClienteCupao FOREIGN KEY (IDClienteCupao) REFERENCES Utilizadores(IDUser),
+    	CONSTRAINT FK_IDComercianteCupao FOREIGN KEY (IDComercianteCupao) REFERENCES Utilizadores(IDUser)
+);
+
+CREATE TABLE MoradaLojasComerciantes(
+	IDComerciante INT,	
+	IDMoradaLoja int NOT NULL AUTO_INCREMENT,
+    Descricao char(100),/* Morada */
+    CodigoPostal int,
+	CONSTRAINT PK_IDMoradaLojaComerciante PRIMARY KEY(IDMoradaLoja,IDComerciante),
+	CONSTRAINT FK_IDComercianteLoja FOREIGN KEY(IDComerciante) REFERENCES Utilizadores(IDUser)
+);
+
+Create table Areas(
+	IDArea INT AUTO_INCREMENT,
+	Descricao char(100),
+	constraint PK_IDArea Primary key(IDArea)
+);
+
+Create table AreasComerciante(
+	IDComercianteA int,
+	IDAreaComerciante int NOT NULL AUTO_INCREMENT,
+	IDArea int,
+	constraint PK_IDAreaTrabalho primary key (IDAreaComerciante),
+	constraint FK_IDComercianteC foreign key (IDComercianteA) references Comerciantes(IDComerciante),
+	constraint FK_IDAreaC foreign key (IDArea) references Areas(IDArea)
+);
+
+CREATE TABLE AreasClientes(
+	IDClienteA INT,
+	IDAreaCliente INT NOT NULL AUTO_INCREMENT,
+	IDArea int,
+	Favorito binary,
+	CONSTRAINT Pk_IDAreaCliente PRIMARY KEY(IDAreaCliente),
+	CONSTRAINT FK_IDClienteA FOREIGN KEY (IDClienteA) REFERENCES Utilizadores(IDUser),
+    CONSTRAINT FK_IDAreaCliente FOREIGN KEY (IDArea) REFERENCES Areas(IDArea)   
+);
+
+CREATE TABLE Promocoes(
+	IDComerciante INT,
+	IDPromocao INT NOT NULL AUTO_INCREMENT,
+	Tipo Binary, /* True = Gastar Cupao , False = Ganhar Carimbos */
+	DataInicio datetime,
+	Duracao int,/* data inicio */
+	Area int,
+	Descricao char(100),
+	Valor int,
+	CONSTRAINT PK_IDPromocao PRIMARY KEY(IDPromocao),
+	CONSTRAINT FK_P_IDComerciante FOREIGN KEY(IDComerciante) REFERENCES Ut‎ilizadores(IDUser)
+);
+
+Create table PromoCliente(
+	IDClientePromo int,
+	IDPromocaoCliente int,
+	token char(100),
+    	Ativo BINARY,
+	usado binary,
+	duracao int,/* data gerado ? data fim  ??*/
+    CONSTRAINT PK_IDPromoCliente PRIMARY KEY (IDClientePromo,IDPromocaoCliente),
+    CONSTRAINT FK_IDClientePromo FOREIGN KEY (IDClientePromo) REFERENCES Utilizadores(IDUser),
+    CONSTRAINT FK_IDPromocaoCliente FOREIGN KEY (IDPromocaoCliente) REFERENCES Utilizadores(IDUser)
+);
+
+
+/* nao necessaria ???  esta nos cupoes
+Create table ClientesFidelizados(
+	IDClienteFidelizado int,
+	IDComercianteFidelizado int,
+	Favorito binary,
+    CONSTRAINT PK_IDClienteFidelizado PRIMARY KEY (IDCliente,IDComerciante),
+    CONSTRAINT FK_IDClienteFidelizado FOREIGN KEY(IDClienteFidelizado) REFERENCES Utilizadores(IDUser),
+    CONSTRAINT FK_IDComercianteFidelizado FOREIGN KEY(IDComercianteFidelizado) REFERENCES Utilizadores(IDUser)
+);
+*/
+
+CREATE TABLE HistoricoAcessoP(
+	UserID INT,
+	IDHistorico INT AUTO_INCREMENT,
+/* datatime */ 
+	Dia int,
+	Mes int,
+	Ano int,
+	Hora INT,
+	Minuto int,
+	/* adicionar  tentativas de acesso ????*/
+	CONSTRAINT PK_IDHistorico PRIMARY KEY(IDHistorico),
+	CONSTRAINT FK_H_UserID FOREIGN KEY(UserID) REFERENCES Utilizadores(IDUser)
+)
